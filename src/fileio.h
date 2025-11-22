@@ -11,7 +11,7 @@
 #include <unordered_map>
 
 std::unordered_map<std::string, std::string>
-loadAirportCodeMap(const std::string &filename);
+loadAirportCodeMapCSV(const std::string &filename);
 
 Graph loadFlightsCSV(std::string file_path);
 #endif

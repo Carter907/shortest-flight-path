@@ -10,7 +10,7 @@ A basic CLI application that expects source and destination airports in the offi
 **Usage**
 
 ```sh
-flightpath --src SUN --dest LAX
+flightpath -s SUN -d LAX
 ```
 output:
 ```sh

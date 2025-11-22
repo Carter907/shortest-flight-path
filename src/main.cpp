@@ -38,7 +38,7 @@ int main(int argc, char *argv[]) {
 
   // loading airport map
 
-  auto airportMap = loadAirportCodeMap("airports.csv");
+  auto airportMap = loadAirportCodeMapCSV("airports.csv");
 
   // check if airports are in map
 

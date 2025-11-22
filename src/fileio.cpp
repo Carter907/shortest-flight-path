@@ -61,8 +61,8 @@ Graph loadFlightsCSV(std::string file_path) {
 
     flight_graph.addVertex(origin);
     flight_graph.addVertex(dest);
-    flight_graph.addEdge(origin, dest, actual_time_ul, estimated_time_ul,
-                         dist_ul);
+    flight_graph.addEdge(origin, dest, dist_ul, actual_time_ul,
+                         estimated_time_ul);
   }
 
   return flight_graph;
