@@ -1,5 +1,7 @@
-#include "src/fileio.h"
-#include <catch2/catch_test_macros.hpp>
+#define CATCH_CONFIG_MAIN
+
+#include "../external/catch2/catch_amalgamated.hpp"
+#include "../include/fileio.h"
 
 TEST_CASE("Graph ADT", "[basic operations]") {
 
@@ -35,7 +37,7 @@ TEST_CASE("Shortest Path of Flights", "[mock graph used]") {
 
 TEST_CASE("Shortest Path of Flights", "[test file used]") {
 
-  auto flightsNetwork = loadFlightsCSV("flights-test-data.csv");
+  auto flightsNetwork = loadFlightsCSV("./assets/flights-test-data.csv");
 
   auto shortest_route{std::vector<std::string>()};
   auto dist = flightsNetwork.shortestPath("LAX", "SUN", shortest_route);

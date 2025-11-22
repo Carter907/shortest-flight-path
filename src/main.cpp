@@ -1,5 +1,5 @@
-#include "Graph.h"
-#include "fileio.h"
+#include "../include/Graph.h"
+#include "../include/fileio.h"
 #include <iostream>
 #include <string>
 
