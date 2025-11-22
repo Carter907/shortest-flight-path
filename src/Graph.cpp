@@ -1,7 +1,6 @@
-#include "Graph.hpp"
-#include "PriorityQueue.hpp"
+#include "Graph.h"
+#include "PriorityQueue.h"
 #include <algorithm>
-#include <iostream>
 #include <limits>
 
 // Helper struct for Dijkstra's Priority Queue

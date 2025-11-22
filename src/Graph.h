@@ -1,7 +1,7 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
-#include "GraphBase.hpp"
+#include "GraphBase.h"
 #include <limits>
 #include <list>
 #include <map>
