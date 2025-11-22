@@ -14,5 +14,5 @@ flightpath --src SUN --dest LAX
 ```
 output:
 ```sh
-The shortest path from SUN to LAX is [insert route found], and it takes [insert total distance of path] miles.
+The shortest path from SUN to LAX is [insert route found], with a total distance of [insert total distance of path] miles.
 ```
