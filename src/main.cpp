@@ -62,7 +62,7 @@ int main() {
     std::getline(flight_line_stream, estimated_time, delim);
     std::getline(flight_line_stream, dist, delim);
 
-    if (actual_time.empty())
+    if (actual_time.empty() || estimated_time.empty() || dist.empty())
       continue;
 
     unsigned long actual_time_ul = std::stoul(actual_time);
