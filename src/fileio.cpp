@@ -9,8 +9,8 @@ loadAirportCodeMapCSV(const std::string &filename) {
   std::string line;
 
   if (!file.is_open()) {
-    std::cerr << "Error opening file!" << std::endl;
-    return database;
+    throw std::runtime_error("Failed to load airport code data"
+                             "\nPlease check your executable location");
   }
 
   while (std::getline(file, line)) {
