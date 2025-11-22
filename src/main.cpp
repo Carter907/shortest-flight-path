@@ -3,12 +3,41 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <unordered_map>
+
+std::unordered_map<std::string, std::string>
+loadAirportData(const std::string &filename) {
+  std::unordered_map<std::string, std::string> database;
+  std::ifstream file(filename);
+  std::string line;
+
+  if (!file.is_open()) {
+    std::cerr << "Error opening file!" << std::endl;
+    return database;
+  }
+
+  while (std::getline(file, line)) {
+    std::stringstream ss(line);
+    std::string code, name;
+
+    // Assuming CSV format is: JFK,John F. Kennedy International Airport
+    if (std::getline(ss, code, ',') && std::getline(ss, name)) {
+      database[code] = name;
+    }
+  }
+
+  return database;
+}
 
 int main() {
   Graph flight_graph;
 
   std::cout << "reading from flight data...\n";
-  // Constructing distance and time graphs from input csv file.
+
+  // loading airport map
+
+  auto airportMap = loadAirportData("airports.csv");
+
   std::ifstream flight_data{"FlightConnectionsJan2025.csv"};
 
   if (!flight_data) {
@@ -39,18 +68,6 @@ int main() {
   }
 
   flight_data.close();
-
-  // g.addEdge("1", "2", 7);
-
-  // std::vector<std::string> path;
-
-  // unsigned long distance = dist_graph.shortestPath("1", "5", path);
-
-  // std::cout << "Shortest Path from 1 to 5: ";
-  // for (size_t i = 0; i < path.size(); ++i) {
-  //   std::cout << path[i] << (i < path.size() - 1 ? " -> " : "");
-  // }
-  // std::cout << "\nTotal Distance: " << distance << std::endl;
 
   return 0;
 }
