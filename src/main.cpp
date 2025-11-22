@@ -62,9 +62,13 @@ int main() {
     std::getline(flight_line_stream, estimated_time, delim);
     std::getline(flight_line_stream, dist, delim);
 
+    unsigned long actual_time_ul = std::stoul(actual_time);
+    unsigned long estimated_time_ul = std::stoul(estimated_time);
+    unsigned long dist_ul = std::stoul(dist);
+
     flight_graph.addVertex(origin);
     flight_graph.addVertex(dest);
-    flight_graph.addEdge(origin, dest, actual_time, estimated_time, dist);
+    flight_graph.addEdge(origin, dest, actual_time_ul, estimated_time_ul, dist_ul);
   }
 
   flight_data.close();
