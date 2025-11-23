@@ -2,15 +2,17 @@
 #include "../include/Graph.h"
 #include <stdexcept>
 
-std::unordered_map<std::string, std::string>
-loadAirportCodeMapCSV(const std::string &filename) {
+std::unordered_map<std::string, std::string> loadAirportCodeMapCSV() {
   std::unordered_map<std::string, std::string> database;
-  std::ifstream file(filename);
+  std::ifstream file("airports.csv");
   std::string line;
 
   if (!file.is_open()) {
-    throw std::runtime_error("Failed to load airport code data"
-                             "\nPlease check your executable location");
+    file = std::ifstream("assets/airports.csv"); // check assets folder
+    if (!file.is_open())
+      throw std::runtime_error(
+          "Failed to load airport code data"
+          "\nPlease make sure airports.csv is accessible to the executable");
   }
 
   while (std::getline(file, line)) {
@@ -52,13 +54,9 @@ Graph loadFlightsCSV(std::string file_path) {
     std::getline(flight_line_stream, estimated_time, delim);
     std::getline(flight_line_stream, dist, delim);
 
-    if (origin.empty() || dest.empty() || actual_time.empty() || dist.empty() ||
-        estimated_time.empty())
-      throw std::runtime_error("Input data contains empty fields\nValue fields "
-                               "must be parsable in csv file");
+    if (origin.empty() || dest.empty() || dist.empty())
+      continue;
 
-    unsigned long actual_time_ul = std::stoul(actual_time);
-    unsigned long estimated_time_ul = std::stoul(estimated_time);
     unsigned long dist_ul = std::stoul(dist);
 
     flight_graph.addVertex(origin);

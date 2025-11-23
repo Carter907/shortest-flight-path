@@ -10,8 +10,7 @@
 #include <string>
 #include <unordered_map>
 
-std::unordered_map<std::string, std::string>
-loadAirportCodeMapCSV(const std::string &filename);
+std::unordered_map<std::string, std::string> loadAirportCodeMapCSV();
 
 Graph loadFlightsCSV(std::string file_path);
 #endif

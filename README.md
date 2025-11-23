@@ -15,11 +15,13 @@ The project is organized into the following directories:
 │   ├── Term.csv
 │   └── test-case-diagram.pdf
 ├── include/
+│   ├── cli.h
 │   ├── fileio.h
 │   ├── Graph.h
 │   ├── GraphBase.h
 │   └── PriorityQueue.h
 ├── src/
+│   ├── cli.cpp
 │   ├── fileio.cpp
 │   ├── Graph.cpp
 │   └── main.cpp
@@ -55,9 +57,13 @@ The `fileio` component (defined in `include/fileio.h` and implemented in `src/fi
 -   `loadAirportCodeMapCSV`: Loads the airport data from `airports.csv`.
 -   `loadFlightsCSV`: Loads the flight connection data from `FlightConnectionsJan2025.csv` and constructs a `Graph` object.
 
+### `CLI`
+
+The `CLI` component (defined in `include/cli.h` and implemented in `src/cli.cpp`) is responsible for handling command-line argument parsing and user interaction. It parses the source and destination airport codes from the command-line arguments.
+
 ### `main`
 
-The `main` function (in `src/main.cpp`) provides a command-line interface (CLI) for the application. It parses the source and destination airport codes from the command-line arguments, loads the flight data, calculates the shortest path using the `Graph` class, and prints the result to the console.
+The `main` function (in `src/main.cpp`) orchestrates the application flow. It utilizes the `CLI` component to parse command-line arguments, loads flight data using `fileio`, calculates the shortest path using the `Graph` class, and prints the result to the console.
 
 ## Data
 
@@ -69,8 +75,6 @@ The application uses the following files located in the `assets` directory:
 -   `Term.csv`: Contains terminal information for airports.
 -   `test-case-diagram.pdf`: A graph diagram representing mock data found in 'flights-test-data.csv', used in tests/test.cpp.
 
-> The data used comes from the [Bureau of Transportation Statistics](https://www.transtats.bts.gov/DL_SelectFields.aspx?QO_fu146_anzr=b0-gvzr&gnoyr_VQ=FGJ)
-
 ## Building and Running
 
 To build and run the project, you can use a C++ compiler like `g++`.
@@ -80,26 +84,40 @@ To build and run the project, you can use a C++ compiler like `g++`.
 To compile the main executable, use the following command, which specifies the C++17 standard:
 
 ```sh
-g++ -std=c++17 -I./include/ src/main.cpp src/Graph.cpp src/fileio.cpp -o flightpath
+g++ -std=c++17 -I./include/ src/main.cpp src/Graph.cpp src/fileio.cpp src/cli.cpp -o flightpath
 ```
 
 ### Running the Application
 
-The application expects the source and destination airport codes as command-line arguments.
+The application requires a source airport, a destination airport, and a flight data file to calculate the shortest path.
+
+For help, you can use the `-h` or `--help` flag:
+
+```sh
+./flightpath --help
+```
 
 **Usage:**
 
 ```sh
-./flightpath -s <source_airport> -d <destination_airport>
+./flightpath -s <source_airport> -d <destination_airport> -f <flight_data_csv>
+```
+
+or with long-form arguments:
+
+```sh
+./flightpath --source <source_airport> --destination <destination_airport> --flight-data <flight_data_csv>
 ```
 
 **Example:**
 
+Using the provided test data:
+
 ```sh
-./flightpath -s JFK -d LAX
+./flightpath -s JFK -d LAX -f assets/flights-test-data.csv
 ```
 
-This will output the shortest flight path and total distance between John F. Kennedy International Airport (JFK) and Los Angeles International Airport (LAX).
+This will output the shortest flight path and total distance between John F. Kennedy International Airport (JFK) and Los Angeles International Airport (LAX) based on the data in `flights-test-data.csv`.
 
 ## Running Tests
 
