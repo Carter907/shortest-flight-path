@@ -69,7 +69,7 @@ To build and run the project, you can use a C++ compiler like `g++`.
 ### Building the Application
 
 ```sh
-g++ -std=c++11 -I./include/ src/main.cpp src/Graph.cpp src/fileio.cpp -o flightpath
+g++ -std=c++17 -I./include/ src/main.cpp src/Graph.cpp src/fileio.cpp -o flightpath
 ```
 
 ### Running the Application
@@ -97,7 +97,7 @@ The project uses the [Catch2](https://github.com/catchorg/Catch2) testing framew
 ### Building the Tests
 
 ```sh
-g++ -std=c++11 -I./include/ -I./external/ tests/test.cpp src/Graph.cpp src/fileio.cpp external/catch2/catch_amalgamated.cpp -o flight_test
+g++ -std=c++17 -I./include/ -I./external/ tests/test.cpp src/Graph.cpp src/fileio.cpp external/catch2/catch_amalgamated.cpp -o flight_test
 ```
 
 ### Running the Tests
