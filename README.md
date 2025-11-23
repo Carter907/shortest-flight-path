@@ -10,11 +10,15 @@ The project is organized into the following directories:
 .
 ├── assets/
 │   ├── airports.csv
-│   └── FlightConnectionsJan2025.csv
+│   ├── FlightConnectionsJan2025.csv
+│   ├── flights-test-data.csv
+│   ├── Term.csv
+│   └── test-case-diagram.pdf
 ├── include/
 │   ├── fileio.h
 │   ├── Graph.h
-│   └── GraphBase.h
+│   ├── GraphBase.h
+│   └── PriorityQueue.h
 ├── src/
 │   ├── fileio.cpp
 │   ├── Graph.cpp
@@ -57,10 +61,13 @@ The `main` function (in `src/main.cpp`) provides a command-line interface (CLI) 
 
 ## Data
 
-The application uses two CSV files located in the `assets` directory:
+The application uses the following files located in the `assets` directory:
 
--   `airports.csv`: Contains a list of airports with their IATA codes and names.
+-   `airports.csv`: Contains a list of airports with their IATA codes and names, used for output result.
 -   `FlightConnectionsJan2025.csv`: Contains flight connection data for January 2025, including the origin, destination, and distance of each flight.
+-   `flights-test-data.csv`: A smaller dataset of flight connections, used for tests.
+-   `Term.csv`: Contains terminal information for airports.
+-   `test-case-diagram.pdf`: A graph diagram representing mock data found in 'flights-test-data.csv', used in tests/test.cpp.
 
 ## Building and Running
 
