@@ -38,7 +38,7 @@ int main(int argc, char *argv[]) {
 
   // loading airport map
 
-  auto airportMap = loadAirportCodeMapCSV("airports.csv");
+  auto airportMap = loadAirportCodeMapCSV("assets/airports.csv");
 
   // check if airports are in map
 
@@ -55,7 +55,7 @@ int main(int argc, char *argv[]) {
 
   // load flight connections graph for January 2025.
 
-  Graph flight_graph = loadFlightsCSV("FlightConnectionsJan2025.csv");
+  Graph flight_graph = loadFlightsCSV("assets/FlightConnectionsJan2025.csv");
 
   // get shortest route and distance for flights from and to user specified
   // airports.

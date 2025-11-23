@@ -68,6 +68,8 @@ To build and run the project, you can use a C++ compiler like `g++`.
 
 ### Building the Application
 
+To compile the main executable, use the following command, which specifies the C++17 standard:
+
 ```sh
 g++ -std=c++17 -I./include/ src/main.cpp src/Graph.cpp src/fileio.cpp -o flightpath
 ```
