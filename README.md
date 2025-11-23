@@ -69,6 +69,8 @@ The application uses the following files located in the `assets` directory:
 -   `Term.csv`: Contains terminal information for airports.
 -   `test-case-diagram.pdf`: A graph diagram representing mock data found in 'flights-test-data.csv', used in tests/test.cpp.
 
+> The data used comes from the [Bureau of Transportation Statistics](https://www.transtats.bts.gov/DL_SelectFields.aspx?QO_fu146_anzr=b0-gvzr&gnoyr_VQ=FGJ)
+
 ## Building and Running
 
 To build and run the project, you can use a C++ compiler like `g++`.
