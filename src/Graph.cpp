@@ -74,31 +74,36 @@ void Graph::addEdge(std::string label1, std::string label2,
     return; // Cannot have edge to itself
   }
 
-  // Check if edge already exists to prevent duplicates
   Vertex *v1 = it1->second;
   Vertex *v2 = it2->second;
 
-  bool exists1 = false;
-  for (const auto &edge : v1->edges) {
-    if (edge.destinationLabel == label2) {
-      exists1 = true;
-      break;
-    }
-  }
+  // Find or create edge from v1 to v2
+  auto edge_it1 =
+      std::find_if(v1->edges.begin(), v1->edges.end(),
+                   [&](const Edge &e) { return e.destinationLabel == label2; });
 
-  if (!exists1) {
+  if (edge_it1 != v1->edges.end()) {
+    // Edge exists, update if new distance is shorter
+    if (distance < edge_it1->distance) {
+      edge_it1->distance = distance;
+    }
+  } else {
+    // Edge does not exist, add it
     v1->edges.push_back(Edge(label2, distance));
   }
 
-  bool exists2 = false;
-  for (const auto &edge : v2->edges) {
-    if (edge.destinationLabel == label1) {
-      exists2 = true;
-      break;
-    }
-  }
+  // Find or create edge from v2 to v1
+  auto edge_it2 =
+      std::find_if(v2->edges.begin(), v2->edges.end(),
+                   [&](const Edge &e) { return e.destinationLabel == label1; });
 
-  if (!exists2) {
+  if (edge_it2 != v2->edges.end()) {
+    // Edge exists, update if new distance is shorter
+    if (distance < edge_it2->distance) {
+      edge_it2->distance = distance;
+    }
+  } else {
+    // Edge does not exist, add it
     v2->edges.push_back(Edge(label1, distance));
   }
 }
