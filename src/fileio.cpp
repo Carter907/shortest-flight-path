@@ -52,8 +52,10 @@ Graph loadFlightsCSV(std::string file_path) {
     std::getline(flight_line_stream, estimated_time, delim);
     std::getline(flight_line_stream, dist, delim);
 
-    if (actual_time.empty() || estimated_time.empty() || dist.empty())
-      continue;
+    if (origin.empty() || dest.empty() || actual_time.empty() || dist.empty() ||
+        estimated_time.empty())
+      throw std::runtime_error("Input data contains empty fields\nValue fields "
+                               "must be parsable in csv file");
 
     unsigned long actual_time_ul = std::stoul(actual_time);
     unsigned long estimated_time_ul = std::stoul(estimated_time);
@@ -61,8 +63,7 @@ Graph loadFlightsCSV(std::string file_path) {
 
     flight_graph.addVertex(origin);
     flight_graph.addVertex(dest);
-    flight_graph.addEdge(origin, dest, dist_ul, actual_time_ul,
-                         estimated_time_ul);
+    flight_graph.addEdge(origin, dest, dist_ul);
   }
 
   return flight_graph;
