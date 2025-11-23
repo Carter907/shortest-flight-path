@@ -10,34 +10,33 @@
 #include <vector>
 
 class Graph : public GraphBase {
-private:
-  // Internal helper structures
-  // MUST be defined BEFORE usage in the map so the compiler knows the correct
-  // type
+public:
+  // Public nested structs for Vertex and Edge
   struct Edge {
-    std::string destinationLabel; // The label of the vertex this edge points to
+    std::string destinationLabel;
     unsigned long distance;
-    unsigned long actual_time;
-    unsigned long estimated_time;
 
-    Edge(std::string dest, unsigned long dis, unsigned long at,
-         unsigned long est)
-        : destinationLabel(dest), distance(dis), actual_time(at),
-          estimated_time(est) {}
+    Edge(std::string dest, unsigned long dis)
+        : destinationLabel(dest), distance(dis) {}
+
+    // Accessor functions for Edge
+    std::string getDestinationLabel() const { return destinationLabel; }
+    unsigned long getDistance() const { return distance; }
   };
 
   struct Vertex {
     std::string label;
-    std::list<Edge> edges; // List of edges connecting to other vertices
+    std::list<Edge> edges;
 
     Vertex(std::string l) : label(l) {}
+
+    // Accessor functions for Vertex
+    std::string getLabel() const { return label; }
+    const std::list<Edge> &getEdges() const { return edges; }
   };
 
-  // Adjacency list: Map label to Vertex pointer for O(1) or O(log n) access
-  // Now 'Vertex*' correctly refers to the struct defined above
+private:
   std::map<std::string, Vertex *> vertices;
-
-  // Helper to help clean up memory
   void clearGraph();
 
 public:
@@ -46,12 +45,17 @@ public:
 
   void addVertex(std::string label) override;
   void removeVertex(std::string label) override;
-  void addEdge(std::string label1, std::string label2, unsigned long distance,
-               unsigned long actual_time,
-               unsigned long estimated_time) override;
+  void addEdge(std::string label1, std::string label2,
+               unsigned long distance) override;
   void removeEdge(std::string label1, std::string label2) override;
   unsigned long shortestPath(std::string startLabel, std::string endLabel,
                              std::vector<std::string> &path) override;
+
+  // Accessor functions for Graph
+  const std::map<std::string, Vertex *> &getVertices() const {
+    return vertices;
+  }
+  std::vector<Edge> getEdges() const;
 };
 
 #endif

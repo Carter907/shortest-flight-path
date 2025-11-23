@@ -61,8 +61,7 @@ void Graph::removeVertex(std::string label) {
 }
 
 void Graph::addEdge(std::string label1, std::string label2,
-                    unsigned long distance, unsigned long actual_time,
-                    unsigned long estimated_time) {
+                    unsigned long distance) {
   // Check if both vertices exist
   auto it1 = vertices.find(label1);
   auto it2 = vertices.find(label2);
@@ -79,17 +78,28 @@ void Graph::addEdge(std::string label1, std::string label2,
   Vertex *v1 = it1->second;
   Vertex *v2 = it2->second;
 
-  bool exists = false;
+  bool exists1 = false;
   for (const auto &edge : v1->edges) {
     if (edge.destinationLabel == label2) {
-      exists = true;
+      exists1 = true;
       break;
     }
   }
 
-  if (!exists) {
-    // Undirected graph: Add edge in both directions
-    v1->edges.push_back(Edge(label2, distance, actual_time, estimated_time));
+  if (!exists1) {
+    v1->edges.push_back(Edge(label2, distance));
+  }
+
+  bool exists2 = false;
+  for (const auto &edge : v2->edges) {
+    if (edge.destinationLabel == label1) {
+      exists2 = true;
+      break;
+    }
+  }
+
+  if (!exists2) {
+    v2->edges.push_back(Edge(label1, distance));
   }
 }
 
@@ -107,6 +117,10 @@ void Graph::removeEdge(std::string label1, std::string label2) {
   // Remove edge from v1's list
   v1->edges.remove_if(
       [&label2](const Edge &e) { return e.destinationLabel == label2; });
+
+  // Remove edge from v2's list
+  v2->edges.remove_if(
+      [&label1](const Edge &e) { return e.destinationLabel == label1; });
 }
 
 unsigned long Graph::shortestPath(std::string startLabel, std::string endLabel,
@@ -185,4 +199,15 @@ unsigned long Graph::shortestPath(std::string startLabel, std::string endLabel,
   std::reverse(path.begin(), path.end());
 
   return distances[endLabel];
+}
+
+std::vector<Graph::Edge> Graph::getEdges() const {
+  std::vector<Graph::Edge> all_edges;
+  for (const auto &pair : vertices) {
+    const Vertex *v = pair.second;
+    for (const auto &edge : v->edges) {
+      all_edges.push_back(edge);
+    }
+  }
+  return all_edges;
 }

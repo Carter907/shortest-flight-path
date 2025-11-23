@@ -13,8 +13,7 @@ public:
   virtual void removeVertex(std::string label) = 0;
 
   virtual void addEdge(std::string label1, std::string label2,
-                       unsigned long distance, unsigned long actual_time,
-                       unsigned long estimated_time) = 0;
+                       unsigned long distance) = 0;
 
   virtual void removeEdge(std::string label1, std::string label2) = 0;
 
