@@ -55,3 +55,27 @@ TEST_CASE("Shortest Path of Flights", "[test file used]") {
   REQUIRE(dist == 170);
   REQUIRE(shortest_route == std::vector<std::string>{"LAX", "DEN", "SUN"});
 }
+
+TEST_CASE("test", "[mock graph used]") {
+
+  Graph basic_graph;
+
+  basic_graph.addVertex("A");
+  basic_graph.addVertex("B");
+  basic_graph.addVertex("C");
+  basic_graph.addVertex("D");
+  basic_graph.addVertex("E");
+
+  basic_graph.addEdge("A", "B", 4);
+  basic_graph.addEdge("A", "C", 8);
+  basic_graph.addEdge("B", "D", 6);
+  basic_graph.addEdge("C", "E", 2);
+  basic_graph.addEdge("C", "B", 3);
+  basic_graph.addEdge("D", "E", 10);
+
+  auto shortest_route{std::vector<std::string>()};
+  auto dist = basic_graph.shortestPath("A", "E", shortest_route);
+
+  REQUIRE(dist == 9);
+  REQUIRE(shortest_route == std::vector<std::string>{"A", "B", "C", "E"});
+}
