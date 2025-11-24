@@ -39,16 +39,6 @@ TEST_CASE("Shortest Path of Flights", "[test file used]") {
 
   auto flightsNetwork = loadFlightsCSV("./assets/flights-test-data.csv");
 
-  for (const auto &[origin, airport] : flightsNetwork.getVertices()) {
-
-    for (const auto &flight : airport->getEdges()) {
-
-      std::cout << "edge: { " << origin << " to "
-                << flight.getDestinationLabel()
-                << ", dist: " << flight.getDistance() << " miles }\n";
-    }
-  }
-
   auto shortest_route{std::vector<std::string>()};
   auto dist = flightsNetwork.shortestPath("LAX", "SUN", shortest_route);
 

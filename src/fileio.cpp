@@ -8,7 +8,7 @@ std::unordered_map<std::string, std::string> loadAirportCodeMapCSV() {
   std::string line;
 
   if (!file.is_open()) {
-    file = std::ifstream("assets/airports.csv"); // check assets folder
+    file = std::ifstream("assets/airports.csv");
     if (!file.is_open())
       throw std::runtime_error(
           "Failed to load airport code data"
@@ -19,7 +19,6 @@ std::unordered_map<std::string, std::string> loadAirportCodeMapCSV() {
     std::stringstream ss(line);
     std::string code, name;
 
-    // Assuming CSV format is: JFK,John F. Kennedy International Airport
     if (std::getline(ss, code, ',') && std::getline(ss, name)) {
       database[code] = name;
     }
@@ -39,7 +38,7 @@ Graph loadFlightsCSV(std::string file_path) {
   }
 
   std::string flight_line{};
-  std::getline(flight_data, flight_line); // take in redundant line
+  std::getline(flight_data, flight_line); 
 
   char delim = ',';
 

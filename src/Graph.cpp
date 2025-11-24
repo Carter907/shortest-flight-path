@@ -42,68 +42,56 @@ void Graph::addVertex(std::string label) {
 void Graph::removeVertex(std::string label) {
   auto it = vertices.find(label);
   if (it == vertices.end()) {
-    return; // Vertex not found
+    return;
   }
 
-  // First, remove edges pointing TO this vertex from ALL other vertices
-  // Since it's an undirected graph, if A has edge to B, B has edge to A.
-  // We iterate through all vertices and remove edges pointing to 'label'.
   for (auto &pair : vertices) {
     Vertex *v = pair.second;
-    // Using remove_if with a lambda to filter edges
     v->edges.remove_if(
         [&label](const Edge &e) { return e.destinationLabel == label; });
   }
 
-  // Delete the vertex object itself
   delete it->second;
   vertices.erase(it);
 }
 
 void Graph::addEdge(std::string label1, std::string label2,
                     unsigned long distance) {
-  // Check if both vertices exist
   auto it1 = vertices.find(label1);
   auto it2 = vertices.find(label2);
 
   if (it1 == vertices.end() || it2 == vertices.end()) {
-    return; // One or both vertices do not exist
+    return;
   }
 
   if (label1 == label2) {
-    return; // Cannot have edge to itself
+    return;
   }
 
   Vertex *v1 = it1->second;
   Vertex *v2 = it2->second;
 
-  // Find or create edge from v1 to v2
   auto edge_it1 =
       std::find_if(v1->edges.begin(), v1->edges.end(),
                    [&](const Edge &e) { return e.destinationLabel == label2; });
 
   if (edge_it1 != v1->edges.end()) {
-    // Edge exists, update if new distance is shorter
     if (distance < edge_it1->distance) {
       edge_it1->distance = distance;
     }
   } else {
-    // Edge does not exist, add it
     v1->edges.push_back(Edge(label2, distance));
   }
 
-  // Find or create edge from v2 to v1
   auto edge_it2 =
       std::find_if(v2->edges.begin(), v2->edges.end(),
                    [&](const Edge &e) { return e.destinationLabel == label1; });
 
   if (edge_it2 != v2->edges.end()) {
-    // Edge exists, update if new distance is shorter
     if (distance < edge_it2->distance) {
       edge_it2->distance = distance;
     }
   } else {
-    // Edge does not exist, add it
     v2->edges.push_back(Edge(label1, distance));
   }
 }
@@ -119,11 +107,9 @@ void Graph::removeEdge(std::string label1, std::string label2) {
   Vertex *v1 = it1->second;
   Vertex *v2 = it2->second;
 
-  // Remove edge from v1's list
   v1->edges.remove_if(
       [&label2](const Edge &e) { return e.destinationLabel == label2; });
 
-  // Remove edge from v2's list
   v2->edges.remove_if(
       [&label1](const Edge &e) { return e.destinationLabel == label1; });
 }
@@ -132,15 +118,13 @@ unsigned long Graph::shortestPath(std::string startLabel, std::string endLabel,
                                   std::vector<std::string> &path) {
   path.clear();
 
-  // Check if vertices exist
   if (vertices.find(startLabel) == vertices.end() ||
       vertices.find(endLabel) == vertices.end()) {
-    return std::numeric_limits<unsigned long>::max(); // Error or unreachable
+    return std::numeric_limits<unsigned long>::max();
   }
 
-  // Initialize distances to infinity
   std::map<std::string, unsigned long> distances;
-  std::map<std::string, std::string> previous; // To reconstruct path
+  std::map<std::string, std::string> previous;
 
   for (auto const &[label, vertex] : vertices) {
     distances[label] = std::numeric_limits<unsigned long>::max();
@@ -148,7 +132,6 @@ unsigned long Graph::shortestPath(std::string startLabel, std::string endLabel,
 
   distances[startLabel] = 0;
 
-  // Custom Priority Queue
   PriorityQueue<DijkstraNode> pq;
   pq.push({0, startLabel});
 
@@ -159,25 +142,20 @@ unsigned long Graph::shortestPath(std::string startLabel, std::string endLabel,
     std::string uLabel = current.vertexLabel;
     unsigned long uDist = current.distance;
 
-    // Optimization: If current distance is greater than already found shortest
-    // distance, skip
     if (uDist > distances[uLabel]) {
       continue;
     }
 
-    // If we reached the destination, we can stop (optional optimization)
     if (uLabel == endLabel) {
       break;
     }
 
     Vertex *uVertex = vertices[uLabel];
 
-    // Iterate neighbors
     for (const auto &edge : uVertex->edges) {
       std::string vLabel = edge.destinationLabel;
       unsigned long distance = edge.distance;
 
-      // Relaxation step
       if (distances[uLabel] != std::numeric_limits<unsigned long>::max() &&
           distances[uLabel] + distance < distances[vLabel]) {
 
@@ -189,12 +167,10 @@ unsigned long Graph::shortestPath(std::string startLabel, std::string endLabel,
     }
   }
 
-  // Check if path exists
   if (distances[endLabel] == std::numeric_limits<unsigned long>::max()) {
-    return std::numeric_limits<unsigned long>::max(); // Path not found
+    return std::numeric_limits<unsigned long>::max();
   }
 
-  // Reconstruct path
   std::string curr = endLabel;
   while (curr != startLabel) {
     path.push_back(curr);

@@ -6,8 +6,6 @@
 
 int main(int argc, char *argv[]) {
 
-  // parse arguments
-
   try {
     parse_args(argc, argv);
   } catch (const std::runtime_error &e) {
@@ -37,36 +35,29 @@ int main(int argc, char *argv[]) {
 
   std::cout << "Reading from flight data...\n";
 
-  // loading airport map
-
   auto airportMap = loadAirportCodeMapCSV();
 
-  // check if airports are in map
-
   if (airportMap.find(user_source) == airportMap.end()) {
-    std::cerr << "Source \'" << user_source
-              << "\' not found\nPlease try another airport code\n";
+    std::cerr << "Source '" << user_source
+              << "' not found\nPlease try another airport code\n";
     return 0;
   }
   if (airportMap.find(user_destination) == airportMap.end()) {
-    std::cerr << "Destination \'" << user_destination
-              << "\' not found\nPlease try another airport code\n";
+    std::cerr << "Destination '" << user_destination
+              << "' not found\nPlease try another airport code\n";
     return 0;
   }
 
-  // load flight connections graph for January 2025.
-
   Graph flight_graph = loadFlightsCSV(flights_csv);
-
-  // get shortest route and distance for flights from and to user specified
-  // airports.
 
   std::vector<std::string> flight_route;
 
   auto route_dist =
       flight_graph.shortestPath(user_source, user_destination, flight_route);
 
-  std::cout << "The closest route between "
+  std::cout << "\n✈️  Shortest Flight Route ✈️\n\n";
+
+  std::cout << "The closest route between\n"
             << (airportMap.find(user_source) != airportMap.end()
                     ? airportMap[user_source]
                     : user_source)
@@ -74,18 +65,18 @@ int main(int argc, char *argv[]) {
             << (airportMap.find(user_destination) != airportMap.end()
                     ? airportMap[user_destination]
                     : user_destination)
-
-            << " is from ";
+            << " is:\n";
+  std::cout << '\n';
 
   for (int i = 0; i < flight_route.size(); i++) {
     if (i == flight_route.size() - 1) {
       std::cout << flight_route[i];
       continue;
     }
-    std::cout << flight_route[i] << " to ";
+    std::cout << flight_route[i] << " -> ";
   }
-
-  std::cout << ".\nThe total distance is " << route_dist << " miles.\n";
+  std::cout << "\n\n";
+  std::cout << "Total distance: " << route_dist << " miles\n";
 
   return 0;
 }

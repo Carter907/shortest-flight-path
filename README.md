@@ -10,6 +10,7 @@ The project is organized into the following directories:
 .
 ├── assets/
 │   ├── airports.csv
+│   ├── flight-path-hypothetical-project_annotated.pdf
 │   ├── FlightConnectionsJan2025.csv
 │   ├── flights-test-data.csv
 │   ├── Term.csv
@@ -73,6 +74,7 @@ The application uses the following files located in the `assets` directory:
 -   `FlightConnectionsJan2025.csv`: Contains flight connection data for January 2025, including the origin, destination, and distance of each flight.
 -   `flights-test-data.csv`: A smaller dataset of flight connections, used for tests.
 -   `Term.csv`: Contains terminal information for airports.
+-   `flight-path-hypothetical-project_annotated.pdf`: A diagram representing a hypothetical flight path project.
 -   `test-case-diagram.pdf`: A graph diagram representing mock data found in 'flights-test-data.csv', used in tests/test.cpp.
 
 ## Building and Running
@@ -118,6 +120,20 @@ Using the provided test data:
 ```
 
 This will output the shortest flight path and total distance between John F. Kennedy International Airport (JFK) and Los Angeles International Airport (LAX) based on the data in `flights-test-data.csv`.
+
+Example Output:
+```
+Reading from flight data...
+
+✈️  Shortest Flight Route ✈️
+
+The closest route between
+John F. Kennedy International Airport and Los Angeles International Airport is:
+
+JFK -> LAX
+
+Total distance: 385 miles
+```
 
 ## Running Tests
 
