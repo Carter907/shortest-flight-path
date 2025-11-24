@@ -58,9 +58,10 @@ int main(int argc, char *argv[]) {
   std::cout << "\n✈️  Shortest Flight Route ✈️\n\n";
   if (route_dist > 15000) {
 
-    std::cout << "It looks like you chose two airports that are not connected! "
-                 "According to Dijkstra's algorithm,\n"
-                 "They have a distance of infinity miles!\n";
+    std::cout
+        << "It looks like you chose two airports that are not connected! \n"
+           "According to Dijkstra's algorithm, They have a distance of \n"
+           "infinity miles!\n";
 
   } else {
 
