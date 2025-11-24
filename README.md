@@ -125,7 +125,7 @@ Example Output:
 ```
 Reading from flight data...
 
-✈️  Shortest Flight Route ✈️
+Shortest Flight Route:
 
 The closest route between
 John F. Kennedy International Airport and Los Angeles International Airport is:
