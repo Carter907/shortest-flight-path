@@ -56,27 +56,35 @@ int main(int argc, char *argv[]) {
       flight_graph.shortestPath(user_source, user_destination, flight_route);
 
   std::cout << "\n✈️  Shortest Flight Route ✈️\n\n";
+  if (route_dist > 15000) {
 
-  std::cout << "The closest route between\n"
-            << (airportMap.find(user_source) != airportMap.end()
-                    ? airportMap[user_source]
-                    : user_source)
-            << " and "
-            << (airportMap.find(user_destination) != airportMap.end()
-                    ? airportMap[user_destination]
-                    : user_destination)
-            << " is:\n";
-  std::cout << '\n';
+    std::cout << "It looks like you chose two airports that are not connected! "
+                 "According to Dijkstra's algorithm,\n"
+                 "They have a distance of infinity miles!\n";
 
-  for (int i = 0; i < flight_route.size(); i++) {
-    if (i == flight_route.size() - 1) {
-      std::cout << flight_route[i];
-      continue;
+  } else {
+
+    std::cout << "The closest route between\n"
+              << (airportMap.find(user_source) != airportMap.end()
+                      ? airportMap[user_source]
+                      : user_source)
+              << " and "
+              << (airportMap.find(user_destination) != airportMap.end()
+                      ? airportMap[user_destination]
+                      : user_destination)
+              << " is:\n";
+    std::cout << '\n';
+
+    for (int i = 0; i < flight_route.size(); i++) {
+      if (i == flight_route.size() - 1) {
+        std::cout << flight_route[i];
+        continue;
+      }
+      std::cout << flight_route[i] << " -> ";
     }
-    std::cout << flight_route[i] << " -> ";
+    std::cout << "\n\n";
+    std::cout << "Total distance: " << route_dist << " miles\n";
   }
-  std::cout << "\n\n";
-  std::cout << "Total distance: " << route_dist << " miles\n";
 
   return 0;
 }
