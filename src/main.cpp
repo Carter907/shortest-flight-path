@@ -55,7 +55,7 @@ int main(int argc, char *argv[]) {
   auto route_dist =
       flight_graph.shortestPath(user_source, user_destination, flight_route);
 
-  std::cout << "\n✈️  Shortest Flight Route ✈️\n\n";
+  std::cout << "Shortest Flight Route\n\n";
   if (route_dist > 15000) {
 
     std::cout
